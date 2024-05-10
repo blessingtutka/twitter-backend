@@ -42,6 +42,24 @@ export  function userInfo(req, res) {
     }
 }
 
+export  function user(req, res) {
+    
+    try{
+        
+        let user = data
+        if(user){
+
+            res.status(200).json(userMixin(user))
+        }
+
+        else res.status(403).json({message:"Unauthorized"})
+
+    }
+    
+    catch(error){
+        res.status(500).json({error:error.message})
+    }
+}
 
 export  function UserTweetsList(req, res) {
     const username = req.params.username
