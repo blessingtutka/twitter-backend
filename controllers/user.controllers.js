@@ -47,7 +47,7 @@ export  function user(req, res) {
     try{
         
         let user = data
-        if(user){
+        if(user.user){
 
             res.status(200).json(userMixin(user))
         }
@@ -55,7 +55,7 @@ export  function user(req, res) {
         else res.status(403).json({message:"Unauthorized"})
 
     }
-    
+
     catch(error){
         res.status(500).json({error:error.message})
     }
@@ -81,7 +81,7 @@ export  function tweetCreate(req, res) {
     try{
         const { id, name, username, bio, profile, tweets } = data.user;
 
-        if (!req.body.text && req.body.text.length > 180) {
+        if (!req.body.text || req.body.text.length > 180) {
             return res.status(400).json({ error:"Bad Request",message: "Tweet text is required and must be under 180 characters" });
         }
       
