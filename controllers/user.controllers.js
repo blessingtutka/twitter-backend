@@ -86,6 +86,7 @@ export  function tweetCreate(req, res) {
         }
       
         let tweet = {
+            id: tweets.length + 1,
             user: {
                 id:id,
                 name: name,
