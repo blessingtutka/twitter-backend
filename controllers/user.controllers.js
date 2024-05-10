@@ -102,8 +102,7 @@ export  function tweetCreate(req, res) {
                 react: {amount:0, state:false}
             }
         }
-        let userTweets = [...tweets]
-        userTweets.push(tweet)
+        let userTweets = [tweet,...tweets]
         data.user.tweets = userTweets
         res.status(201).json({message:"Tweet Create successfully", data:tweet})
     }
