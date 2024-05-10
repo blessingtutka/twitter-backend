@@ -135,3 +135,47 @@ export  function tweetDelete(req, res) {
         res.status(500).json({error:error.message})
     }
 }
+
+
+
+export  function React(req, res) {
+    try{
+        
+        const { id , user , liked } = req.body
+        
+        if ( !id || !user || liked==undefined ) {
+            return res.status(400).json({ error:"Bad Request" });
+        }
+        else {
+            const tweet = ( data.user.username == user ? data.user.tweets : data.tweets).find(
+                (tweet) => tweet.id === id
+              );
+
+            if(tweet) {
+                let likes = tweet.data.react.amount
+                let state = false
+                if(req.body.liked == true){
+                    likes = Math.max(0, likes - 1)
+                    state = false
+                }
+                else{
+                    likes += 1
+                    state = true
+                }
+    
+                tweet.data.react.amount = likes
+                tweet.data.react.state = state
+                const tweetIndex =  data.user.username == user ? data.user.tweets.indexOf(tweet) : data.tweets.indexOf(tweet)
+                data.user.username == user ? data.user.tweets[tweetIndex] == tweet : data.tweets[tweetIndex] == tweet
+                res.status(200).json(tweet)
+            }
+            else res.status(404).json({message:"Not Tweet Found"})
+        }
+
+    }
+    catch(error){
+        res.status(500).json({"error": error.message})
+    }
+
+}
+
